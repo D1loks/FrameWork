@@ -1,24 +1,37 @@
-from src.main.core.Log import Log
+from src.main.core.Log import Log, LogType
 from src.main.core.DriverWrapper import DriverWrapper
 
 class PageNavigationUtil:
     @staticmethod
     def to(page_url: str):
-        Log.log(f"Відкриваємо сторінку {page_url}")
-        DriverWrapper.get_driver().navigate().to(page_url)
-        Log.log(f"Відкрито сторінку {page_url}")
+        driver = DriverWrapper()
+        Log.log(f"Відкриваємо сторінку {page_url}", LogType.INFO)
+        # Додаємо протокол https:// якщо його немає
+        if not page_url.startswith(('http://', 'https://')):
+            page_url = 'https://' + page_url
+        driver.get_driver().get(page_url)
+        Log.log(f"Відкрито сторінку {page_url}", LogType.INFO)
+
     @staticmethod
     def toMainPage():
-        Log.log("Відкриваємо головну сторінку")
-        DriverWrapper.get_driver().navigate().to("https://www.google.com")
-        Log.log("Відкрито головну сторінку")
+        driver = DriverWrapper()
+        Log.log("Відкриваємо головну сторінку Google", LogType.INFO)
+        driver.get_driver().get("https://www.google.com")
+        Log.log("Відкрито головну сторінку Google", LogType.INFO)
+        return driver
+
     @staticmethod
     def toSoftserve():
-        Log.log("Відкриваємо сторінку SoftServe")
-        DriverWrapper.get_driver().navigate().to("https://softserve.ua")
-        Log.log("Відкрито сторінку SoftServe")
+        driver = DriverWrapper()
+        Log.log("Відкриваємо сторінку SoftServe", LogType.INFO)
+        driver.get_driver().get("https://softserve.ua")
+        Log.log("Відкрито сторінку SoftServe", LogType.INFO)
+        return driver
+
     @staticmethod
     def toEpam():
-        Log.log("Відкриваємо сторінку Epam")
-        DriverWrapper.get_driver().navigate().to("https://www.epam.com")
-        Log.log("Відкрито сторінку Epam")
+        driver = DriverWrapper()
+        Log.log("Відкриваємо сторінку Epam", LogType.INFO)
+        driver.get_driver().get("https://www.epam.com")
+        Log.log("Відкрито сторінку Epam", LogType.INFO)
+        return driver
